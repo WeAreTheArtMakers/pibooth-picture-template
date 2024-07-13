@@ -1,15 +1,12 @@
-
 ========================
 pibooth-picture-template
 ========================
 
 |PythonVersions| |PypiPackage| |Downloads|
 
-``pibooth-picture-template`` is a plugin for the `pibooth`_ application.
+``pibooth-picture-template``, `pibooth`_ uygulaması için bir eklentidir.
 
-It permits to define the **captures/texts positions and sizes** using a template. The template file
-(XML based on `mxGraphModel definition <https://jgraph.github.io/mxgraph/docs/tutorial.html>`_)
-can be easily created/edited using the free online diagram software `Flowchart Maker`_. Note that 
+Bu eklenti, **çekimlerin/metinlerin konumlarını ve boyutlarını** bir şablon kullanarak tanımlamaya olanak tanır. Şablon dosyası (XML, `mxGraphModel tanımı <https://jgraph.github.io/mxgraph/docs/tutorial.html>`_ temelinde) ücretsiz çevrimiçi diyagram yazılımı `Flowchart Maker`_ kullanılarak kolayca oluşturulabilir/düzenlenebilir. 
 
 .. image:: https://github.com/pibooth/pibooth-picture-template/blob/master/docs/images/FlowchartMaker.png?raw=true
    :align: center
@@ -17,13 +14,12 @@ can be easily created/edited using the free online diagram software `Flowchart M
    :alt: Flowchart Maker
    :target: https://app.diagrams.net
 
+Bir dizi şablon `GitHub <https://github.com/pibooth/pibooth-picture-template/tree/master/templates>`_ üzerinde bulunabilir.
 
-A set of templates can be found on `GitHub <https://github.com/pibooth/pibooth-picture-template/tree/master/templates>`_.
+Bu eklenti tarafından otomatik olarak yüklenen `fancy.xml <https://github.com/pibooth/pibooth-picture-template/blob/master/templates/fancy.xml?raw=true>`_
+şablonu ``~/.config/pibooth/picture_template.xml`` dizinine kaydedilir.
 
-The `fancy.xml <https://github.com/pibooth/pibooth-picture-template/blob/master/templates/fancy.xml?raw=true>`_
-template is automatically installed by this plugin in ``~/.config/pibooth/picture_template.xml``.
-
-Below are the pictures generated with this one (learn here how to `Create a template`_):
+Aşağıda, bu şablonla oluşturulan resimler bulunmaktadır (burada nasıl `Bir şablon oluşturulur`_ öğreneceksiniz):
 
 +---------------------------------------+---------------------------------------+
 |          |fancy1_landscape|           |          |fancy3_landscape|           |
@@ -35,33 +31,32 @@ Below are the pictures generated with this one (learn here how to `Create a temp
 | |fancy1_portrait| | |fancy2_portrait| | |fancy3_portrait| | |fancy4_portrait| |
 +-------------------+-------------------+-------------------+-------------------+
 
-Install
+Kurulum
 -------
 
 ::
 
     $ pip3 install pibooth-picture-template
 
-Configuration
+Yapılandırma
 -------------
 
-Here below the new configuration options available in the `pibooth`_ configuration.
-**The keys and their default values are automatically added to your configuration after first** `pibooth`_ **restart.**
+Aşağıda `pibooth`_ yapılandırmasında kullanılabilen yeni yapılandırma seçenekleri bulunmaktadır.
+**Anahtarlar ve varsayılan değerleri, ilk** `pibooth`_ **yeniden başlatmadan sonra otomatik olarak yapılandırmanıza eklenir.**
 
 .. code-block:: ini
 
     [PICTURE]
 
-    # Pictures template path, it should contain 8 pages (4 capture numbers and 2 orientations)
+    # Resim şablonu yolu, 8 sayfa (4 çekim numarası ve 2 yön) içermelidir
     template = picture_template.xml
 
-.. note:: Edit the configuration by running the command ``pibooth --config``.
+.. note:: Yapılandırmayı düzenlemek için ``pibooth --config`` komutunu çalıştırın.
 
-Picture rendering
------------------
+Resim İşleme
+-------------
 
-Only **captures**, **texts** and **images** position/size are rendered. It means that, in addition to the template,
-the following configuration keys are still taken in account to render the final picture:
+Yalnızca **çekimler**, **metinler** ve **resimler**in konum/boyutu işlenir. Bu, şablona ek olarak, nihai resmi oluşturmak için aşağıdaki yapılandırma anahtarlarının da dikkate alındığı anlamına gelir:
 
 * ``[PICTURE][footer_text1]``
 * ``[PICTURE][footer_text2]``
@@ -71,123 +66,113 @@ the following configuration keys are still taken in account to render the final 
 * ``[PICTURE][overlays]``
 * ``[PICTURE][backgrounds]``
 
-Picture orientation
--------------------
-
-A ``TemplateParserError`` is raised if the requested orientation for the selected
-captures number can not be found in the template file.
-
-If ``[PICTURE][orientation] = auto`` the best orientation is chosen following these
-rules:
-
-* find a template with the correct number of captures and placeholders with same orientation
-  than the captures.
-* find a template with the correct number of captures.
-* find a template with portrait orientation
-
-Create a template
+Resim Yönlendirme
 -----------------
 
-The steps below will show how to create a basic template file from scratch using
-the `Flowchart Maker`_ application.
+Seçilen çekim numarası için istenen yön şablon dosyasında bulunamazsa bir ``TemplateParserError`` hatası oluşturulur.
 
-This file may contain several templates to define the picture layout for ``1`` /
-``2`` / ``3`` / ``4`` captures and ``portrait`` / ``landscape`` orientations.
+Eğer ``[PICTURE][orientation] = auto`` ise, en iyi yönlendirme şu kurallara göre seçilir:
 
-Step 1: create a new file
-^^^^^^^^^^^^^^^^^^^^^^^^^
+* Doğru sayıda çekim ve yer tutucuya sahip aynı yönlendirme ile bir şablon bulun.
+* Doğru sayıda çekime sahip bir şablon bulun.
+* Dikey yönlendirmeye sahip bir şablon bulun.
+
+Bir Şablon Oluşturma
+--------------------
+
+Aşağıdaki adımlar, `Flowchart Maker`_ uygulamasını kullanarak sıfırdan temel bir şablon dosyasının nasıl oluşturulacağını gösterecektir.
+
+Bu dosya, ``1`` / ``2`` / ``3`` / ``4`` çekim ve ``dikey`` / ``yatay`` yönlendirmeleri için resim düzenini tanımlamak üzere birkaç şablon içerebilir.
+
+Adım 1: Yeni bir dosya oluşturma
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ===========  ==================================================================
- |step1_1|   Click on ``Create New Diagram``.
+ |step1_1|   ``Yeni Diyagram Oluştur``a tıklayın.
 
- |step1_2|   Choose a blank diagram. Modify the name of the diagram, it will be
-             the name of the exported file. Click on ``Create``.
+ |step1_2|   Boş bir diyagram seçin. Diyagramın adını değiştirin, bu dışa aktarılacak
+             dosyanın adı olacaktır. ``Oluştur``a tıklayın.
 
- |step1_3|   Select the appropriated paper size. A custom one can be defined in
-             *inches*.
+ |step1_3|   Uygun kağıt boyutunu seçin. Özel bir boyut *inç* olarak tanımlanabilir.
 ===========  ==================================================================
 
-.. note:: It could be easier to start from an existing file. Click on ``Open Existing Diagram``
-          to load the default template file located in ``~/.config/pibooth/picture_template.xml``
+.. note:: Var olan bir dosyadan başlamak daha kolay olabilir. ``Mevcut Diyagramı Aç``a tıklayın
+          ve ``~/.config/pibooth/picture_template.xml`` dizininde bulunan varsayılan şablon dosyasını yükleyin.
 
-Step 2: placeholder for captures
+Adım 2: Çekim yer tutucu
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ===========  ==================================================================
- |step2_1|   Choose a rectangle to define a capture placeholder. Other shapes
-             have no effect and will be considered as rectangles.
+ |step2_1|   Bir çekim yer tutucu tanımlamak için bir dikdörtgen seçin. Diğer şekiller
+             etkisiz olacaktır ve dikdörtgen olarak kabul edilir.
 
- |step2_2|   Resize the rectangle to fit the desired size. The rectangle can
-             overflow the border of the page to make design effects. Up to 4
-             rectangles can be drawn.
+ |step2_2|   Dikdörtgeni istenen boyuta uyacak şekilde yeniden boyutlandırın. Dikdörtgen
+             sayfa sınırını aşabilir, tasarım efektleri oluşturmak için kullanılabilir. En fazla 4
+             dikdörtgen çizilebilir.
 
- |step2_3|   The captures placeholders shall be numbered (``1`` to ``4``) to
-             define the captures to be placed inside. Colored shapes give a
-             better overview of the layout but they are not rendered on the
-             final picture.
+ |step2_3|   Çekim yer tutucuları numaralandırılmalıdır (``1`` ila ``4``) yerleştirilecek çekimleri
+             tanımlamak için. Renklendirilmiş şekiller düzen hakkında daha iyi bir genel bakış sağlar ancak
+             nihai resimde render edilmezler.
 ===========  ==================================================================
 
-.. note:: Images can also be inserted in the template. Use the option ``To back``
-          or ``To Front`` to chose the displayed order (PNG and JPG format accepted).
+.. note:: Şablona resimler de eklenebilir. Görüntüleme sırasını seçmek için ``Arkaya Gönder``
+          veya ``Öne Gönder`` seçeneklerini kullanın (PNG ve JPG formatları kabul edilir).
 
-Step 3: placeholder for texts
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Adım 3: Metin yer tutucu
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 ===========  ==================================================================
- |step3_1|   Choose a text box to represent a text placeholder.
+ |step3_1|   Bir metin yer tutucu temsil etmek için bir metin kutusu seçin.
 
- |step3_2|   Resize the text box to fit the desired size. Up to 2 text boxes
-             can be drawn depending on the  `pibooth`_ configuration.
+ |step3_2|   Metin kutusunu istenen boyuta uyacak şekilde yeniden boyutlandırın. `pibooth`
+             yapılandırmasına bağlı olarak en fazla 2 metin kutusu çizilebilir.
 
- |step2_3|   The text placeholders shall be numbered (``1``, ``2``,
-             ``footer_text1`` or ``footer_text2``) to define the text to be
-             placed inside.
+ |step3_3|   Metin yer tutucuları numaralandırılmalıdır (``1``, ``2``,
+             ``footer_text1`` veya ``footer_text2``) yerleştirilecek metni tanımlamak için.
 ===========  ==================================================================
 
-Step 4: picture resolution
+Adım 4: Resim çözünürlüğü
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ===========  ==================================================================
- |step4_1|   Extra properties can be set to the template. Click on the button
-             ``Edit Data`` (close to the paper size settings). Type ``dpi`` in
-             the entry box and click on ``Add Property``.
+ |step4_1|   Şablona ekstra özellikler eklenebilir. Kağıt boyutu ayarlarının
+             yakınındaki ``Verileri Düzenle`` düğmesine tıklayın. Giriş kutusuna
+             ``dpi`` yazın ve ``Özellik Ekle``ye tıklayın.
 
- |step4_2|   By default a resolution of ``600`` DPI is used. It means that the
-             picture size will be 2400x3600 pixels for a resolution of 4x6
-             inches. Set it to the desired value and click on ``Apply``.
+ |step4_2|   Varsayılan olarak ``600`` DPI çözünürlüğü kullanılır. Bu, resim boyutunun
+             4x6 inç çözünürlüğünde 2400x3600 piksel olacağı anlamına gelir. İstenen
+             değeri ayarlayın ve ``Uygula``ya tıklayın.
 ===========  ==================================================================
 
-Step 5: add new a template
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Adım 5: Yeni bir şablon ekleme
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ===========  ==================================================================
- |step5_1|   Once the template is created. A new one can be defined for an
-             other captures number or other orientation. Click on ``+`` to add
-             a new page.
+ |step5_1|   Şablon oluşturulduktan sonra, başka bir çekim sayısı veya başka bir
+             yönlendirme için yeni bir şablon tanımlanabilir. Yeni bir sayfa
+             eklemek için ``+``ya tıklayın.
 
-|step5_2|    The same picture can be used several times in the template to
-             allows a symmetric template for example (one copy for you, one for
-             your guests).
+ |step5_2|   Aynı resim şablonda birkaç kez kullanılabilir, simetrik bir şablon
+             oluşturmak için (bir kopya sizin için, bir kopya misafirleriniz için).
 ===========  ==================================================================
 
-Step 6: save the template file
+Adım 6: Şablon dosyasını kaydetme
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ===========  ==================================================================
- |step6_1|   Generate the XML file by clicking ``File``, ``Export as``,
-             ``XML...``.
+ |step6_1|   XML dosyasını oluşturmak için ``Dosya``, ``Farklı Dışa Aktar``,
+             ``XML...``a tıklayın.
 
- |step6_2|   Click on ``Export`` (unselect ``Compressed`` if you want to edit
-             the file manually later).
+ |step6_2|   ``Sıkıştırılmış``ı seçmeyi kaldırın, dosyayı manuel olarak düzenlemek
+             isterseniz. ``Dışa Aktar``a tıklayın.
 ===========  ==================================================================
 
-.. note:: Instead of running `pibooth`_ each time you want to test the result of
-          your template, use the command ``pibooth-regen``. It will regenerate
-          the existing pictures present in ``~/Pictures/pibooth`` using the new
-          template.
+.. note:: Şablonunuzun sonucunu test etmek için her seferinde `pibooth`_ çalıştırmak yerine,
+          ``pibooth-regen`` komutunu kullanın. Bu komut, yeni şablonu kullanarak ``~/Pictures/pibooth`` dizininde bulunan
+          mevcut resimleri yeniden oluşturacaktır.
 
 
-.. --- Links ------------------------------------------------------------------
+.. --- Bağlantılar ------------------------------------------------------------------
 
 .. _`pibooth`: https://pypi.org/project/pibooth
 
@@ -199,13 +184,13 @@ Step 6: save the template file
 
 .. |PypiPackage| image:: https://badge.fury.io/py/pibooth-picture-template.svg
    :target: https://pypi.org/project/pibooth-picture-template
-   :alt: PyPi package
+   :alt: PyPi paketi
 
 .. |Downloads| image:: https://img.shields.io/pypi/dm/pibooth-picture-template?color=purple
    :target: https://pypi.org/project/pibooth-picture-template
-   :alt: PyPi downloads
+   :alt: PyPi indirmeleri
 
-.. --- Examples ---------------------------------------------------------------
+.. --- Örnekler ---------------------------------------------------------------
 
 .. |fancy1_landscape| image:: https://github.com/pibooth/pibooth-picture-template/blob/master/docs/examples/fancy1_landscape.jpg?raw=true
    :width: 90 %
@@ -247,7 +232,7 @@ Step 6: save the template file
    :align: middle
    :alt: fancy4_portrait
 
-.. --- Tuto -------------------------------------------------------------------
+.. --- Eğitim ---------------------------------------------------------------
 
 .. |step1_1| image:: https://github.com/pibooth/pibooth-picture-template/blob/master/docs/images/step1_1_create.png?raw=true
    :width: 80 %
